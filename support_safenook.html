@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SafeNook — Support</title>
+<style>
+  :root {
+    --primary: #26D5C8;
+    --primary-dark: #0A8F85;
+    --bg: #F2F2F7;
+    --card: #FFFFFF;
+    --text: #1A1A2E;
+    --gray: #8E8E93;
+    --light-gray: #E5E5EA;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .lang-switcher {
+    position: sticky;
+    top: 0;
+    background: #26D5C8;
+    padding: 10px 24px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .lang-btn {
+    padding: 6px 20px;
+    border-radius: 20px;
+    border: 2px solid white;
+    background: transparent;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .lang-btn.active { background: white; color: #26D5C8; }
+
+  .hero {
+    background: linear-gradient(135deg, #26D5C8 0%, #0A8F85 100%);
+    padding: 50px 24px 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  }
+
+  .hero-icon {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+    position: relative;
+  }
+
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 8px;
+    position: relative;
+  }
+
+  .hero p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.85);
+    position: relative;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 16px 60px;
+    margin-top: -30px;
+    position: relative;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+  }
+
+  .card-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--light-gray);
+    text-decoration: none;
+    color: var(--text);
+    transition: opacity 0.2s;
+  }
+
+  .contact-item:last-child { border-bottom: none; }
+  .contact-item:hover { opacity: 0.7; }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+
+  .icon-teal { background: rgba(38,213,200,0.15); }
+  .icon-blue { background: rgba(30,136,229,0.15); }
+  .icon-orange { background: rgba(255,112,67,0.15); }
+  .icon-purple { background: rgba(171,71,188,0.15); }
+
+  .contact-text { flex: 1; }
+  .contact-text strong { display: block; font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+  .contact-text span { font-size: 13px; color: var(--gray); }
+  .arrow { color: var(--light-gray); font-size: 18px; }
+
+  .faq-item {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--light-gray);
+    cursor: pointer;
+  }
+
+  .faq-item:last-child { border-bottom: none; }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .faq-toggle {
+    color: var(--primary);
+    font-size: 22px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+    margin-left: 12px;
+    font-weight: 300;
+  }
+
+  .faq-answer {
+    display: none;
+    font-size: 14px;
+    color: var(--gray);
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  .faq-item.open .faq-answer { display: block; }
+  .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(38,213,200,0.1);
+    color: var(--primary-dark);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .badge-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 12px;
+    color: var(--gray);
+    line-height: 1.8;
+  }
+
+  .footer a { color: var(--primary); text-decoration: none; }
+
+  [lang-section] { display: none; }
+  [lang-section].active { display: block; }
+</style>
+</head>
+<body>
+
+<div class="lang-switcher">
+  <button class="lang-btn active" onclick="switchLang('en', this)">English</button>
+  <button class="lang-btn" onclick="switchLang('ru', this)">Русский</button>
+</div>
+
+<!-- ENGLISH -->
+<div lang-section="en" class="active">
+
+  <div class="hero">
+    <div class="hero-icon">💚</div>
+    <h1>SafeNook Support</h1>
+    <p>We're here to help you manage your finances</p>
+  </div>
+
+  <div class="container">
+
+    <div class="card">
+      <div class="card-title">Contact Us</div>
+
+      <a href="mailto:support@safenook.app?subject=Bug Report — SafeNook&body=Describe the issue:%0A%0ASteps to reproduce:%0A1.%0A2.%0A3.%0A%0AApp version:%0ADevice and iOS:" class="contact-item">
+        <div class="contact-icon icon-orange">🐛</div>
+        <div class="contact-text">
+          <strong>Report a Bug</strong>
+          <span>Something not working? Let us know</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+      <a href="mailto:support@safenook.app?subject=Feature Request — SafeNook&body=Your idea:%0A%0AWhy it's useful:%0A%0AHow it should work:" class="contact-item">
+        <div class="contact-icon icon-purple">💡</div>
+        <div class="contact-text">
+          <strong>Suggest a Feature</strong>
+          <span>Have an idea? We'd love to hear it</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+      <a href="mailto:support@safenook.app?subject=Question — SafeNook&body=Hi,%0A%0AMy question:%0A%0AApp version:%0ADevice and iOS:" class="contact-item">
+        <div class="contact-icon icon-teal">❓</div>
+        <div class="contact-text">
+          <strong>Ask a Question</strong>
+          <span>support@safenook.app</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+      <a href="https://privacy.safenook.app" class="contact-item">
+        <div class="contact-icon icon-blue">🔒</div>
+        <div class="contact-text">
+          <strong>Privacy Policy</strong>
+          <span>How we protect your data</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">FAQ</div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">How do I add a transaction? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Tap the Transfers button at the bottom → select the operation type (Income, Expense, or Transfer) → fill in the details and confirm.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">Where is my data stored? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">All your financial data is stored locally on your device only. We have no access to your data and it is never sent to any server.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">How do I restore my Pro subscription? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Go to Settings → About → Restore Purchases. Your subscription will be restored automatically if purchased with the same Apple ID.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">How do I cancel my subscription? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Go to iPhone Settings → Apple ID → Subscriptions → SafeNook → Cancel Subscription. Your Pro access remains active until the end of the paid period.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">What happens if I delete the app? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">All data will be permanently deleted. We recommend backing up your device via iCloud before deleting.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">How does the deposit tracker work? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Go to Tools → Deposits → add your bank → add a deposit with rate and term. SafeNook calculates and displays your earnings in real time.</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 SafeNook &nbsp;·&nbsp;
+    <a href="mailto:support@safenook.app">support@safenook.app</a><br>
+    <a href="https://privacy.safenook.app">Privacy Policy</a>
+  </div>
+
+</div>
+
+<!-- RUSSIAN -->
+<div lang-section="ru">
+
+  <div class="hero">
+    <div class="hero-icon">💚</div>
+    <h1>Поддержка SafeNook</h1>
+    <p>Мы здесь чтобы помочь вам управлять финансами</p>
+  </div>
+
+  <div class="container">
+
+    <div class="card">
+      <div class="card-title">Связаться с нами</div>
+
+      <a href="mailto:support@safenook.app?subject=Bug Report — SafeNook&body=Опишите ошибку:%0A%0AШаги для воспроизведения:%0A1.%0A2.%0A3.%0A%0AВерсия приложения:%0AУстройство и iOS:" class="contact-item">
+        <div class="contact-icon icon-orange">🐛</div>
+        <div class="contact-text">
+          <strong>Сообщить об ошибке</strong>
+          <span>Что-то не работает? Расскажите нам</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+      <a href="mailto:support@safenook.app?subject=Feature Request — SafeNook&body=Ваша идея:%0A%0AЗачем это нужно:%0A%0AКак должно работать:" class="contact-item">
+        <div class="contact-icon icon-purple">💡</div>
+        <div class="contact-text">
+          <strong>Предложить идею</strong>
+          <span>Есть идея? Мы рады услышать</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+      <a href="mailto:support@safenook.app?subject=Question — SafeNook&body=Здравствуйте,%0A%0AМой вопрос:%0A%0AВерсия приложения:%0AУстройство и iOS:" class="contact-item">
+        <div class="contact-icon icon-teal">❓</div>
+        <div class="contact-text">
+          <strong>Задать вопрос</strong>
+          <span>support@safenook.app</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+      <a href="https://privacy.safenook.app" class="contact-item">
+        <div class="contact-icon icon-blue">🔒</div>
+        <div class="contact-text">
+          <strong>Политика конфиденциальности</strong>
+          <span>Как мы защищаем ваши данные</span>
+        </div>
+        <div class="arrow">›</div>
+      </a>
+
+    </div>
+
+    <div class="card">
+      <div class="card-title">Частые вопросы</div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">Как добавить транзакцию? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Нажмите кнопку Переводы внизу → выберите тип операции (Пополнение, Расход или Перевод) → заполните данные и подтвердите.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">Где хранятся мои данные? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Все финансовые данные хранятся только локально на вашем устройстве. Мы не имеем доступа к данным и они никогда не отправляются на сервер.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">Как восстановить подписку Pro? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Перейдите в Настройки → О приложении → Восстановить покупки. Подписка восстановится автоматически если была куплена с тем же Apple ID.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">Как отменить подписку? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Настройки iPhone → Apple ID → Подписки → SafeNook → Отменить подписку. Доступ Pro сохраняется до конца оплаченного периода.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">Что будет если удалить приложение? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Все данные будут удалены безвозвратно. Рекомендуем сделать резервную копию через iCloud перед удалением.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggle(this)">
+        <div class="faq-question">Как работает трекер депозитов? <span class="faq-toggle">+</span></div>
+        <div class="faq-answer">Инструменты → Депозиты → добавьте банк → добавьте депозит со ставкой и сроком. SafeNook рассчитывает и показывает доход в реальном времени.</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="footer">
+    © 2026 SafeNook &nbsp;·&nbsp;
+    <a href="mailto:support@safenook.app">support@safenook.app</a><br>
+    <a href="https://privacy.safenook.app">Политика конфиденциальности</a>
+  </div>
+
+</div>
+
+<script>
+function switchLang(lang, btn) {
+  document.querySelectorAll('[lang-section]').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[lang-section="' + lang + '"]').classList.add('active');
+  btn.classList.add('active');
+}
+
+function toggle(el) {
+  el.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
